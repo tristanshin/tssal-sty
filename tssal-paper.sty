@@ -1,0 +1,67 @@
+\ProvidesPackage{tssal-paper}[2024/05/09]
+
+%\usepackage[foot]{amsaddr}
+\usepackage[margin = 1in]{geometry}
+\usepackage{hyperref}
+\usepackage[capitalise]{cleveref}
+\usepackage{amssymb}
+
+\usepackage{thmtools}
+\usepackage{thm-restate}
+\declaretheorem[name = Theorem, numberwithin = section]{theorem}
+\declaretheorem[name = Proposition, sibling = theorem]{proposition}
+\declaretheorem[name = Lemma, sibling = theorem]{lemma}
+\declaretheorem[name = Fact, sibling = theorem]{fact}
+\declaretheorem[name = Corollary, sibling = theorem]{corollary}
+\declaretheorem[name = Conjecture, sibling = theorem]{conjecture}
+\theoremstyle{definition}
+\declaretheorem[name = Definition, sibling = theorem]{definition}
+\declaretheorem[name = Example, sibling = theorem]{example}
+\declaretheorem[name = Note, sibling = theorem]{note}
+\declaretheorem[name = Question, sibling = theorem]{question}
+\declaretheorem[name = Remark, sibling = theorem]{remark}
+
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{conjecture}[theorem]{Conjecture}
+%\theoremstyle{definition}
+%\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{example}[theorem]{Example}
+%\newtheorem{note}[theorem]{Note}
+%\newtheorem{question}[theorem]{Question}
+%%\theoremstyle{remark}
+%\newtheorem{remark}[theorem]{Remark}
+
+\numberwithin{equation}{section}
+
+\newcommand{\toc}{
+	\setlength{\parskip}{0em}
+	\tableofcontents
+	\setlength{\parskip}{1em}
+}
+\newcommand{\bib}{
+	\bibliographystyle{amsalpha}
+	\bibliography{references}
+}
+
+\usepackage[labelfont = bf, font = footnotesize]{caption}
+\captionsetup{belowskip=-10pt}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage[shortlabels]{enumitem}
+\usepackage{booktabs}
+\usepackage{mathtools}
+\newcommand{\ds}{\displaystyle}
+\usepackage{array}
+\newcolumntype{L}{>{$}l<{$}}
+\newcolumntype{C}{>{$}c<{$}}
+\newcolumntype{R}{>{$}r<{$}}
+\DeclareTextFontCommand{\vocab}{\bfseries}
+\newcommand{\link}[1]{\href{https://#1}{\texttt{#1}}}
+\newcommand{\TODO}[1]{{\color{red}\textbf{TODO}: #1}}
+
+% Personal Definitions
+\usepackage{tssal-shortcuts}
+\renewcommand*{\reldesc}[3][black]{\stackrel{{\color{#1} #3}}{#2}}

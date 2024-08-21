@@ -1,0 +1,460 @@
+\ProvidesPackage{tssal}[2024/05/20]
+% NEEDS HEAVY REWRITE
+% TODO: write options
+% TODO: completely redo this, I want to make thm environments more similar to in papers
+
+% Options
+\newif\iftssalbw
+\DeclareOption{bw}{\tssalbwtrue}
+\newif\iftssaldraft
+\DeclareOption{draft}{\tssaldrafttrue}
+\newif\iftssalinternal
+\DeclareOption{internal}{\tssalinternaltrue}
+\newif\iftssallessspace
+\DeclareOption{lessspace}{\tssallessspacetrue}
+\ProcessOptions\relax
+
+\iftssaldraft
+	\usepackage{draftwatermark}
+	\SetWatermarkAngle{50}
+	\SetWatermarkLightness{0.75}
+	\SetWatermarkFontSize{32pt}
+	\SetWatermarkScale{5}
+	\SetWatermarkText{DRAFT}
+\fi
+\iftssalinternal
+	\usepackage{draftwatermark}
+	\SetWatermarkAngle{50}
+	\SetWatermarkLightness{0.9}
+	\SetWatermarkFontSize{32pt}
+	\SetWatermarkScale{5}
+	\SetWatermarkText{INTERNAL}
+\fi
+
+% Required Packages
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+
+% Useful Packages
+\usepackage[utf8]{inputenc}
+
+% Title Formatting
+\usepackage{titling}
+\pretitle{
+	\begin{center}
+	~\\ \vspace{-10em}
+	\Large\bfseries\boldmath
+}
+\posttitle{~\\ \vspace{-0.1em} \end{center}}
+
+\preauthor{\begin{center}}
+\postauthor{~\\ \vspace{-0.2em} \end{center}}
+
+\predate{\begin{center}}
+\postdate{~\\ \end{center}}
+
+\title{~\vspace{-2em}}
+\author{~\vspace{-2em}}
+\date{~\vspace{-5ex}}
+
+% Document Formatting
+\usepackage[margin=1in]{geometry}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{tssal-turquoise}{RGB}{64, 224, 208} % hex #00CCCC
+\definecolor{mit-cardinal}{RGB}{163, 31, 52} % hex #a31f34
+\definecolor{sdmc-teal}{RGB}{50, 156, 154} % hex #329c9a
+\definecolor{comment-orange}{RGB}{255, 140, 0} % hex #ff8c00
+\newlength\tindent
+\setlength{\tindent}{\parindent}
+\setlength{\parindent}{0pt}
+\renewcommand{\indent}{\hspace*{\tindent}}
+\setlength{\parskip}{1em}
+\newcommand{\toc}{
+	\setlength{\parskip}{0em}
+	\tableofcontents
+	\setlength{\parskip}{1em}
+}
+\usepackage[shortlabels]{enumitem}
+\usepackage{booktabs}
+\usepackage[labelfont=it,font=footnotesize]{caption}
+\iftssallessspace
+	\newcommand\sectionprelude{\vspace{-1.3\baselineskip}}
+	\newcommand\sectionpostlude{\vspace{-0.8\baselineskip}}
+	\let\origsection\section
+	\renewcommand\section{\@ifstar{\starsection}{\nostarsection}}
+	\newcommand\nostarsection[1]{\vspace{0.8\baselineskip}\sectionprelude\origsection{#1}\sectionpostlude}
+	\newcommand\starsection[1]{\vspace{0.8\baselineskip}\sectionprelude\origsection*{#1}\sectionpostlude}
+	\let\origsubsection\subsection
+	\renewcommand\subsection{\@ifstar{\starsubsection}{\nostarsubsection}}
+	\newcommand\nostarsubsection[1]{\sectionprelude\origsubsection{#1}\sectionpostlude}
+	\newcommand\starsubsection[1]{\sectionprelude\origsubsection*{#1}\sectionpostlude}
+	\let\origsubsubsection\subsubsection
+	\renewcommand\subsubsection{\@ifstar{\starsubsubsection}{\nostarsubsubsection}}
+	\newcommand\nostarsubsubsection[1]{\sectionprelude\origsubsubsection{#1}\sectionpostlude}
+	\newcommand\starsubsubsection[1]{\sectionprelude\origsubsubsection*{#1}\sectionpostlude}
+	\setlist{topsep=0pt}
+\fi
+\newcommand{\ds}{\displaystyle}
+\usepackage{array}
+\newcolumntype{L}{>{$}l<{$}}
+\newcolumntype{C}{>{$}c<{$}}
+\newcolumntype{R}{>{$}r<{$}}
+
+% Header/Footer
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\setlength{\headheight}{3em}
+
+\lhead{\thetitle}
+\rhead{\theauthor}
+\cfoot{\thepage}
+
+\usepackage[bottom]{footmisc}
+
+% Referencing
+\usepackage{hyperref}
+\usepackage{cleveref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+\usepackage{nameref}
+\newcommand{\link}[1]{\href{https://#1}{\texttt{#1}}}
+\newcommand{\yt}[1]{\link{youtube.com/watch?v=#1}}
+\newcommand{\ytts}[3]{\href{https://youtu.be/#1?t=#2m#3s}{{#2}:{#3}}}
+\newcommand{\email}[1]{\href{mailto:#1}{\texttt{#1}}}
+
+% Theorems, Proofs, Problems, Solutions
+\usepackage[most]{tcolorbox}
+\tcbuselibrary{theorems}
+\theoremstyle{definition}
+
+\newtcolorbox{redboxtitle}[1]{
+	parbox = false,
+	colback = red!5,
+	colframe = red!75!black,
+	fonttitle = \bfseries,
+	title = {#1}
+}
+\newtcolorbox{greenboxtitle}[1]{
+	parbox = false,
+	colback = green!5,
+	colframe = green!75!black,
+	fonttitle = \bfseries,
+	title = {#1}
+}
+\newtcolorbox{blueboxtitle}[1]{
+	parbox = false,
+	colback = blue!5,
+	colframe = blue!75!black,
+	fonttitle = \bfseries,
+	title = {#1}
+}
+\newtcolorbox{blackboxtitle}[1]{
+	parbox = false,
+	colback = black!5,
+	colframe = black!75!black,
+	fonttitle = \bfseries,
+	title = {#1}
+}
+\newtcolorbox{redbox}{
+	parbox = false,
+	colback = red!5,
+	colframe = red!75!black
+}
+\newtcolorbox{greenbox}{
+	parbox = false,
+	colback = green!5,
+	colframe = green!75!black
+}
+\newtcolorbox{bluebox}{
+	parbox = false,
+	colback = blue!5,
+	colframe = blue!75!black
+}
+\newtcolorbox{blackbox}{
+	parbox = false,
+	colback = black!5,
+	colframe = black!75!black
+}
+
+\iftssalbw
+	\colorlet{thmback}{white}
+	\colorlet{thmframe}{black}
+	\colorlet{conjframe}{black}
+	\colorlet{probback}{white}
+	\colorlet{probframe}{black}
+	\colorlet{exback}{white}
+	\colorlet{exframe}{black}
+	\colorlet{defback}{white}
+	\colorlet{defframe}{black}
+\else
+	\colorlet{thmback}{green!5}
+	\colorlet{thmframe}{green!35!black}
+	\colorlet{conjframe}{green!75!black}
+	\colorlet{probback}{blue!5}
+	\colorlet{probframe}{blue!75!black}
+	\colorlet{exback}{Turquoise!5}
+	\colorlet{exframe}{Turquoise!70}
+	\colorlet{defback}{black!5}
+	\colorlet{defframe}{black!75!black}
+\fi
+
+\iftssalbw
+	\newtcbtheorem[number within = section]{theorem}{Theorem}{
+		parbox = false,
+		colback = thmback,
+		colframe = thmframe,
+		fonttitle = \bfseries,
+		colbacktitle=white,
+		coltitle=black
+	}{thm}
+	\newtcbtheorem[use counter from = theorem]{corollary}{Corollary}{
+		parbox = false,
+		colback = thmback,
+		colframe = thmframe,
+		fonttitle = \bfseries,
+		colbacktitle=white,
+		coltitle=black
+	}{cor}
+	\newtcbtheorem[use counter from = theorem]{lemma}{Lemma}{
+		parbox = false,
+		colback = thmback,
+		colframe = thmframe,
+		fonttitle = \bfseries,
+		colbacktitle=white,
+		coltitle=black
+	}{lem}
+	\newtcbtheorem[use counter from = theorem]{proposition}{Proposition}{
+		parbox = false,
+		colback = thmback,
+		colframe = thmframe,
+		fonttitle = \bfseries,
+		colbacktitle=white,
+		coltitle=black
+	}{prop}
+	\newtcbtheorem[use counter from = theorem]{fact}{Fact}{
+		parbox = false,
+		colback = thmback,
+		colframe = thmframe,
+		fonttitle = \bfseries,
+		colbacktitle=white,
+		coltitle=black
+	}{fact}
+	\newtcbtheorem[use counter from = theorem]{conjecture}{Conjecture}{
+		parbox = false,
+		colback = thmback,
+		colframe = conjframe,
+		fonttitle = \bfseries,
+		colbacktitle=white,
+		coltitle=black
+	}{conj}
+	\newtcbtheorem[use counter from = theorem]{hypothesis}{Hypothesis}{
+		parbox = false,
+		colback = thmback,
+		colframe = conjframe,
+		fonttitle = \bfseries,
+		colbacktitle=white,
+		coltitle=black
+	}{hyp}
+	\newtcbtheorem[use counter from = theorem]{problem}{Problem}{
+		parbox = false,
+		colback = probback,
+		colframe = probframe,
+		fonttitle = \bfseries,
+		colbacktitle=white,
+		coltitle=black
+	}{prob}
+	\newtcbtheorem[use counter from = theorem]{question}{Question}{
+		parbox = false,
+		colback = probback,
+		colframe = probframe,
+		fonttitle = \bfseries,
+		colbacktitle=white,
+		coltitle=black
+	}{ques}
+	\newtcbtheorem[use counter from = theorem]{exampleproblem}{Example Problem}{
+		parbox = false,
+		colback = probback,
+		colframe = probframe,
+		fonttitle = \bfseries,
+		colbacktitle=white,
+		coltitle=black
+	}{exprob}
+	\newtcbtheorem[use counter from = theorem]{example}{Example}{
+		parbox = false,
+		colback=exback,
+		colframe=exframe,
+		fonttitle=\bfseries,
+		sharp corners,
+		colbacktitle=white,
+		coltitle=black
+	}{ex}
+	\newtcbtheorem[use counter from = theorem]{definition}{Definition}{
+		parbox = false,
+		colback = defback,
+		colframe = defframe,
+		fonttitle = \bfseries,
+		colbacktitle=white,
+		coltitle=black
+	}{def}
+	\newenvironment{remark}{\tcolorbox[parbox = false, colback = defback, colframe = defframe, colbacktitle=white, coltitle=black]\textbf{Remark.}}{\endtcolorbox}
+\else
+	\newtcbtheorem[number within = section]{theorem}{Theorem}{
+		parbox = false,
+		colback = thmback,
+		colframe = thmframe,
+		fonttitle = \bfseries,
+	}{thm}
+	\newtcbtheorem[use counter from = theorem]{corollary}{Corollary}{
+		parbox = false,
+		colback = thmback,
+		colframe = thmframe,
+		fonttitle = \bfseries
+	}{cor}
+	\newtcbtheorem[use counter from = theorem]{lemma}{Lemma}{
+		parbox = false,
+		colback = thmback,
+		colframe = thmframe,
+		fonttitle = \bfseries
+	}{lem}
+	\newtcbtheorem[use counter from = theorem]{proposition}{Proposition}{
+		parbox = false,
+		colback = thmback,
+		colframe = thmframe,
+		fonttitle = \bfseries
+	}{prop}
+	\newtcbtheorem[use counter from = theorem]{fact}{Fact}{
+		parbox = false,
+		colback = thmback,
+		colframe = thmframe,
+		fonttitle = \bfseries
+	}{fact}
+	\newtcbtheorem[use counter from = theorem]{conjecture}{Conjecture}{
+		parbox = false,
+		colback = thmback,
+		colframe = conjframe,
+		fonttitle = \bfseries
+	}{conj}
+	\newtcbtheorem[use counter from = theorem]{hypothesis}{Hypothesis}{
+		parbox = false,
+		colback = thmback,
+		colframe = conjframe,
+		fonttitle = \bfseries
+	}{hyp}
+	\newtcbtheorem[use counter from = theorem]{problem}{Problem}{
+		parbox = false,
+		colback = probback,
+		colframe = probframe,
+		fonttitle = \bfseries
+	}{prob}
+	\newtcbtheorem[use counter from = theorem]{question}{Question}{
+		parbox = false,
+		colback = probback,
+		colframe = probframe,
+		fonttitle = \bfseries
+	}{ques}
+	\newtcbtheorem[use counter from = theorem]{exampleproblem}{Example Problem}{
+		parbox = false,
+		colback = probback,
+		colframe = probframe,
+		fonttitle = \bfseries
+	}{exprob}
+	\newtcbtheorem[use counter from = theorem]{example}{Example}{
+		parbox = false,
+		colback=exback,
+		colframe=exframe,
+		fonttitle=\bfseries,
+		sharp corners,
+	}{ex}
+	\newtcbtheorem[use counter from = theorem]{exercise}{Exercise}{
+		parbox = false,
+		colback=exback,
+		colframe=exframe,
+		fonttitle=\bfseries,
+		sharp corners,
+	}{exer}
+	\newtcbtheorem[use counter from = theorem]{definition}{Definition}{
+		parbox = false,
+		colback = defback,
+		colframe = defframe,
+		fonttitle = \bfseries
+	}{def}
+	\newenvironment{remark}{\tcolorbox[parbox = false, colback = defback, colframe = defframe]\textbf{Remark.}}{\endtcolorbox}
+\fi
+
+\newenvironment{intheorem}{\par\noindent\ignorespaces\textbf{Theorem.}}{\par\ignorespacesafterend}
+\newenvironment{incorollary}{\par\noindent\ignorespaces\textbf{Corollary.}}{\par\ignorespacesafterend}
+\newenvironment{inlemma}{\par\noindent\ignorespaces\textbf{Lemma.}}{\par\ignorespacesafterend}
+\newenvironment{inproposition}{\par\noindent\ignorespaces\textbf{Proposition.}}{\par\ignorespacesafterend}
+\newenvironment{infact}{\par\noindent\ignorespaces\textbf{Fact.}}{\par\ignorespacesafterend}
+\newenvironment{inconjecture}{\par\noindent\ignorespaces\textbf{Conjecture.}}{\par\ignorespacesafterend}
+\newenvironment{inhypothesis}{\par\noindent\ignorespaces\textbf{Hypothesis.}}{\par\ignorespacesafterend}
+\newenvironment{inproblem}{\par\noindent\ignorespaces\textbf{Problem.}}{\par\ignorespacesafterend}
+\newenvironment{inquestion}{\par\noindent\ignorespaces\textbf{Question.}}{\par\ignorespacesafterend}
+\newenvironment{inexampleproblem}{\par\noindent\ignorespaces\textbf{Example Problem.}}{\par\ignorespacesafterend}
+\newenvironment{inexample}{\par\noindent\ignorespaces\textbf{Example.}}{\par\ignorespacesafterend}
+\newenvironment{inexercise}{\par\noindent\ignorespaces\textbf{Exercise.}}{\par\ignorespacesafterend}
+\newenvironment{inremark}{\par\noindent\ignorespaces\textbf{Remark.}}{\par\ignorespacesafterend}
+\newtheorem{numberedintheorem}{Theorem}
+\newtheorem{numberedincorollary}{Corollary}
+\newtheorem{numberedinlemma}{Lemma}
+\newtheorem{numberedinproposition}{Proposition}
+\newtheorem{numberedinfact}{Fact}
+\newtheorem{numberedinconjecture}{Conjecture}
+\newtheorem{numberedinhypothesis}{Hypothesis}
+\newtheorem{numberedinproblem}{Problem}
+\newtheorem{numberedinquestion}{Question}
+\newtheorem{numberedinexampleproblem}{Example Problem}
+\newtheorem{numberedinexample}{Example}
+\newtheorem{numberedinremark}{Remark}
+
+\newenvironment{indefinition}{\par\noindent\ignorespaces\textbf{Definition.}}{\par\ignorespacesafterend}
+\newenvironment{claim}{\par\noindent\ignorespaces\textbf{Claim:}}{\par\ignorespacesafterend}
+\newenvironment{observation}{\par\noindent\ignorespaces\textbf{Observation.}}{\par\ignorespacesafterend}
+\newenvironment{solutionlemma}{\par\noindent\ignorespaces\textbf{Lemma:}}{\par\ignorespacesafterend}
+\renewcommand\qedsymbol{$\blacksquare$}
+\newenvironment{solution}{\pushQED{\qed}\par\noindent\ignorespaces}{\popQED\par\ignorespacesafterend}
+\renewenvironment{proof}{\pushQED{\qed}\par\noindent\ignorespaces\emph{Proof.}}{\popQED\par\ignorespacesafterend}
+\newenvironment{lemmaproof}{\pushQED{\hfill$\square$}\par\noindent\ignorespaces\emph{Proof.}}{\popQED\par\ignorespacesafterend}
+
+% parts taken from https://tex.stackexchange.com/questions/6985/place-quotation-dictum-in-a-box
+\newcommand{\quotebox}[2]{
+	\begin{tcolorbox}[colback=tssal-turquoise!5!white,colframe=black!75!black,sharp corners=downhill]
+		\vskip 1em {\fontsize{42}{48}\selectfont \color{tssal-turquoise!75!black} \textbf{``} \vskip -.5em} \vskip -.5em
+		\parindent 2.2em
+		#1\begin{flushright}\textsc{#2}\end{flushright}
+	\end{tcolorbox}
+}
+
+% Drawing
+\usepackage[inline]{asymptote}
+\usepackage{tikz-cd}
+\usepackage{pgfplots}
+\usepackage{tikzducks}
+\usetikzlibrary{calc,ducks}
+
+% Extras
+\usepackage{float}
+\usepackage{afterpage}
+\usepackage{systeme}
+\usepackage{mathdots}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage[normalem]{ulem}
+\DeclareTextFontCommand{\vocab}{\color{blue}\bfseries} % TOOD: add option for no bold
+\DeclareTextFontCommand{\vocabnb}{\color{blue}}
+\DeclareTextFontCommand{\boldalert}{\color{red}\bfseries}
+\newcommand{\TODO}[1]{{\color{red}\textbf{TODO}: #1}}
+
+% Problem Database
+\newcommand{\pdb}[1]{\IfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#1".tex}{\input{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#1".tex}}{#1}\unskip}
+\newcommand{\sdb}[1]{\IfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/S/#1".tex}{\input{"C:/Users/tshin/Dropbox/ProblemDatabase/S/#1".tex}}{TODO}\unskip}
+\newcommand{\ldb}[1]{\IfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/L/#1".tex}{\input{"C:/Users/tshin/Dropbox/ProblemDatabase/L/#1".tex}}{#1}\unskip}
+\newcommand{\pdbl}[1]{\IfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#1".tex}{\IfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/L/#1".tex}{(\input{"C:/Users/tshin/Dropbox/ProblemDatabase/L/#1".tex}\unskip) \input{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#1".tex}}{\input{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#1".tex}}}{#1}\unskip}
+
+% Personal Definitions
+\usepackage{tssal-shortcuts}
