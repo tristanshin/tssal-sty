@@ -1,4 +1,4 @@
-\ProvidesPackage{tssal-shortcuts}[2025/01/21]
+\ProvidesPackage{tssal-shortcuts}[2025/01/27]
 
 % TODO: remove things that were for specific classes/not general use
 % TODO: use options
@@ -39,8 +39,10 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 
 % Special Functions
-\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\newcommand{\bigabs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\lVert #1 \rVert}
+\newcommand{\bignorm}[1]{\left\lVert #1 \right\rVert}
 \DeclareMathOperator{\dist}{dist}
 \newcommand{\indicator}{\mathbf{1}}
 \DeclareMathOperator{\bbone}{\text{\usefont{U}{bbm}{m}{n}1}}
