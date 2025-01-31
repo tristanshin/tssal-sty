@@ -26,8 +26,10 @@
 \newcommand{\curlybrace}[1]{\left\{ #1 \right\}}
 
 % Set Notation
-\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\set}[1]{\{#1\}}
+\newcommand{\bigset}[1]{\left\{#1\right\}}
 \newcommand{\genby}[1]{\langle #1\rangle}
+\newcommand{\biggenby}[1]{\left\langle #1\right\rangle}
 \newcommand{\st}{\,\middle\vert\,}
 \newcommand{\cst}{\,:\,}
 \newcommand{\stc}{\cst}
@@ -49,9 +51,12 @@
 \DeclareMathOperator{\bbone}{\text{\usefont{U}{bbm}{m}{n}1}}
 \newcommand{\ind}{\bbone}
 
-\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
-\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
-\newcommand{\fracpart}[1]{\left\{#1\right\}}
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+\newcommand{\bigfloor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+\newcommand{\bigceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\fracpart}[1]{\{#1\}}
+\newcommand{\bigfracpart}[1]{\left\{#1\right\}}
 
 \newcommand{\cbrt}[1]{\sqrt[3]{#1}}
 
@@ -81,9 +86,10 @@
 \DeclareMathOperator{\codim}{codim}
 
 \newcommand{\vecb}[1]{\mathbf{#1}}
-\newcommand{\innerproduct}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\innerproduct}[2]{\langle #1, #2 \rangle}
+\newcommand{\biginnerproduct}[2]{\left\langle #1, #2 \right\rangle}
 \newcommand{\ip}[2]{\innerproduct{#1}{#2}}
-\newcommand{\vecabs}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\bigip}[2]{\biginnerproduct{#1}{#2}}
 \newcommand{\tpose}{\intercal}
 \newcommand{\transpose}{\intercal}
 
