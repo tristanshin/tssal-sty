@@ -1,4 +1,4 @@
-\ProvidesPackage{tssal-shortcuts}[2025/02/07]
+\ProvidesPackage{tssal-shortcuts}[2025/02/10]
 
 % TODO: remove things that were for specific classes/not general use
 % TODO: use options
@@ -42,10 +42,10 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 
 % Special Functions
-\newcommand{\abs}[1]{\lvert #1 \rvert}
-\newcommand{\bigabs}[1]{\left\lvert #1 \right\rvert}
-\newcommand{\norm}[1]{\lVert #1 \rVert}
-\newcommand{\bignorm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{{\lvert #1 \rvert}}
+\newcommand{\bigabs}[1]{{\left\lvert #1 \right\rvert}}
+\newcommand{\norm}[1]{{\lVert #1 \rVert}}
+\newcommand{\bignorm}[1]{{\left\lVert #1 \right\rVert}}
 \DeclareMathOperator{\dist}{dist}
 \newcommand{\indicator}{\mathbf{1}}
 \DeclareMathOperator{\bbone}{\text{\usefont{U}{bbm}{m}{n}1}}
@@ -86,8 +86,8 @@
 \DeclareMathOperator{\codim}{codim}
 
 \newcommand{\vecb}[1]{\mathbf{#1}}
-\newcommand{\innerproduct}[2]{\langle #1, #2 \rangle}
-\newcommand{\biginnerproduct}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\innerproduct}[2]{{\langle #1, #2 \rangle}}
+\newcommand{\biginnerproduct}[2]{{\left\langle #1, #2 \right\rangle}}
 \newcommand{\ip}[2]{\innerproduct{#1}{#2}}
 \newcommand{\bigip}[2]{\biginnerproduct{#1}{#2}}
 \newcommand{\tpose}{\intercal}
