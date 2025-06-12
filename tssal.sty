@@ -1,4 +1,4 @@
-\ProvidesPackage{tssal}[2024/08/22]
+\ProvidesPackage{tssal}[2025/06/11]
 % NEEDS HEAVY REWRITE
 % TODO: write options
 % TODO: completely redo this, I want to make thm environments more similar to in papers
@@ -39,6 +39,7 @@
 
 % Useful Packages
 \usepackage[utf8]{inputenc}
+\usepackage{xstring}
 
 % Title Formatting
 \usepackage{titling}
@@ -480,65 +481,77 @@
 \newcommand{\TODO}[1]{{\color{red}\textbf{TODO}: #1}}
 
 % Problem Database
-\newcommand{\pdb}[1]{
-	\IfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#1".tex}{
-		\input{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#1".tex}
-	}{
-		\IfFileExists{"/Users/tshin/Documents/ProblemDatabase/P/#1".tex}{
-			\input{"/Users/tshin/Documents/ProblemDatabase/P/#1".tex}
-		}{
-			#1
-		}
-	}
-	\unskip
-}
-\newcommand{\sdb}[1]{
-	\IfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/S/#1".tex}{
-		\input{"C:/Users/tshin/Dropbox/ProblemDatabase/S/#1".tex}
-	}{
-		\IfFileExists{"/Users/tshin/Documents/ProblemDatabase/S/#1".tex}{
-			\input{"/Users/tshin/Documents/ProblemDatabase/S/#1".tex}
-		}{
-			#1
-		}
-	}
-	\unskip
-}
-\newcommand{\ldb}[1]{
-	\IfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/L/#1".tex}{
-		\input{"C:/Users/tshin/Dropbox/ProblemDatabase/L/#1".tex}
-	}{
-		\IfFileExists{"/Users/tshin/Documents/ProblemDatabase/L/#1".tex}{
-			\input{"/Users/tshin/Documents/ProblemDatabase/L/#1".tex}
-		}{
-			#1
-		}
-	}
-	\unskip
-}
-
-
-\newcommand{\pdbl}[1]{
-	\IfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#1".tex}{
-		\IfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/L/#1".tex}{
-			(\input{"C:/Users/tshin/Dropbox/ProblemDatabase/L/#1".tex}\unskip)
-			\input{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#1".tex}
-		}{
-			\input{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#1".tex}
-		}
-	}{
-		\IfFileExists{"/Users/tshin/Documents/ProblemDatabase/P/#1".tex}{
-			\IfFileExists{"/Users/tshin/Documents/ProblemDatabase/L/#1".tex}{
-				(\input{"/Users/tshin/Documents/ProblemDatabase/L/#1".tex}\unskip)
-				\input{"/Users/tshin/Documents/ProblemDatabase/P/#1".tex}
+\newcommand{\pdb}[2][NONE]{
+	\IfEqCase{#1}{
+		{NONE}{
+			\InputIfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#2".tex}{
 			}{
-				\input{"/Users/tshin/Documents/ProblemDatabase/P/#1".tex}
+				\InputIfFileExists{"/Users/tshin/Documents/ProblemDatabase/P/#2".tex}{
+				}{
+					#1
+				}
 			}
+			\unskip
+		}
+		{short}{
+			\InputIfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#2-short".tex}{
+			}{
+				\InputIfFileExists{"/Users/tshin/Documents/ProblemDatabase/P/#2-short".tex}{
+				}{
+					#1
+				}
+			}
+			\unskip
+		}
+	}
+}
+\newcommand{\sdb}[2][NONE]{
+	\InputIfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/S/#1".tex}{
+	}{
+		\InputIfFileExists{"/Users/tshin/Documents/ProblemDatabase/S/#1".tex}{
 		}{
 			#1
 		}
 	}
 	\unskip
+}
+\newcommand{\ldb}[2][NONE]{
+	\InputIfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/L/#1".tex}{
+	}{
+		\InputIfFileExists{"/Users/tshin/Documents/ProblemDatabase/L/#1".tex}{
+		}{
+			#1
+		}
+	}
+	\unskip
+}
+\newcommand{\pdbl}[2][NONE]{
+	\IfEqCase{#1}{
+		{NONE}{
+			\InputIfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#2".tex}{
+				(\input{"C:/Users/tshin/Dropbox/ProblemDatabase/L/#2".tex}\unskip)
+			}{
+				\InputIfFileExists{"/Users/tshin/Documents/ProblemDatabase/P/#2".tex}{
+					(\input{"/Users/tshin/Documents/ProblemDatabase/L/#2".tex}\unskip)
+				}{
+					#1
+				}
+			}
+			\unskip
+		}
+		{short}{
+			\InputIfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/P/#2-short".tex}{
+				(\input{"C:/Users/tshin/Dropbox/ProblemDatabase/L/#2".tex}\unskip)
+			}{
+				\InputIfFileExists{"/Users/tshin/Documents/ProblemDatabase/P/#2-short".tex}{
+					(\input{"/Users/tshin/Documents/ProblemDatabase/L/#2".tex}\unskip)
+				}{
+					#1
+				}
+			}
+			\unskip
+		}
+	}
 }
 
 % Personal Definitions
