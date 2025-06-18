@@ -1,4 +1,4 @@
-\ProvidesPackage{tssal}[2025/06/11]
+\ProvidesPackage{tssal}[2025/06/17]
 % NEEDS HEAVY REWRITE
 % TODO: write options
 % TODO: completely redo this, I want to make thm environments more similar to in papers
@@ -505,7 +505,7 @@
 		}
 	}
 }
-\newcommand{\sdb}[2][NONE]{
+\newcommand{\sdb}[1]{
 	\InputIfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/S/#1".tex}{
 	}{
 		\InputIfFileExists{"/Users/tshin/Documents/ProblemDatabase/S/#1".tex}{
@@ -515,7 +515,7 @@
 	}
 	\unskip
 }
-\newcommand{\ldb}[2][NONE]{
+\newcommand{\ldb}[1]{
 	\InputIfFileExists{"C:/Users/tshin/Dropbox/ProblemDatabase/L/#1".tex}{
 	}{
 		\InputIfFileExists{"/Users/tshin/Documents/ProblemDatabase/L/#1".tex}{
