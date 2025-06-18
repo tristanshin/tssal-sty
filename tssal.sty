@@ -1,4 +1,4 @@
-\ProvidesPackage{tssal}[2025/06/17]
+\ProvidesPackage{tssal}[2025/06/18]
 % NEEDS HEAVY REWRITE
 % TODO: write options
 % TODO: completely redo this, I want to make thm environments more similar to in papers
@@ -488,7 +488,7 @@
 			}{
 				\InputIfFileExists{"/Users/tshin/Documents/ProblemDatabase/P/#2".tex}{
 				}{
-					#1
+					#2
 				}
 			}
 			\unskip
@@ -498,7 +498,7 @@
 			}{
 				\InputIfFileExists{"/Users/tshin/Documents/ProblemDatabase/P/#2-short".tex}{
 				}{
-					#1
+					#2
 				}
 			}
 			\unskip
@@ -534,7 +534,7 @@
 				\InputIfFileExists{"/Users/tshin/Documents/ProblemDatabase/P/#2".tex}{
 					(\input{"/Users/tshin/Documents/ProblemDatabase/L/#2".tex}\unskip)
 				}{
-					#1
+					#2
 				}
 			}
 			\unskip
@@ -546,7 +546,7 @@
 				\InputIfFileExists{"/Users/tshin/Documents/ProblemDatabase/P/#2-short".tex}{
 					(\input{"/Users/tshin/Documents/ProblemDatabase/L/#2".tex}\unskip)
 				}{
-					#1
+					#2-short
 				}
 			}
 			\unskip
