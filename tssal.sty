@@ -1,4 +1,4 @@
-\ProvidesPackage{tssal}[2025/06/19]
+\ProvidesPackage{tssal}[2025/10/11]
 % NEEDS HEAVY REWRITE
 % TODO: write options
 % TODO: completely redo this, I want to make thm environments more similar to in papers
@@ -134,6 +134,15 @@
 \tcbuselibrary{theorems}
 \theoremstyle{definition}
 
+\newtcolorbox{bwboxtitle}[1]{
+	parbox = false,
+	colback = white,
+	colframe = black,
+	fonttitle = \bfseries,
+	colbacktitle = white,
+	coltitle = black,
+	title = {#1}
+}
 \newtcolorbox{redboxtitle}[1]{
 	parbox = false,
 	colback = red!5,
