@@ -1,39 +1,28 @@
-\ProvidesPackage{tssal-paper}[2024/05/09]
+\ProvidesPackage{tssal-paper}[2026/11/13]
 
+\usepackage{amsthm, amsmath, amsfonts, amssymb, mathrsfs}
 %\usepackage[foot]{amsaddr}
 \usepackage[margin = 1in]{geometry}
 \usepackage{hyperref}
 \usepackage[capitalise]{cleveref}
-\usepackage{amssymb}
 
 \usepackage{thmtools}
 \usepackage{thm-restate}
-\declaretheorem[name = Theorem, numberwithin = section]{theorem}
-\declaretheorem[name = Proposition, sibling = theorem]{proposition}
-\declaretheorem[name = Lemma, sibling = theorem]{lemma}
-\declaretheorem[name = Fact, sibling = theorem]{fact}
-\declaretheorem[name = Claim, sibling = theorem]{claim}
-\declaretheorem[name = Corollary, sibling = theorem]{corollary}
-\declaretheorem[name = Conjecture, sibling = theorem]{conjecture}
-\theoremstyle{definition}
-\declaretheorem[name = Definition, sibling = theorem]{definition}
-\declaretheorem[name = Example, sibling = theorem]{example}
-\declaretheorem[name = Note, sibling = theorem]{note}
-\declaretheorem[name = Question, sibling = theorem]{question}
-\declaretheorem[name = Remark, sibling = theorem]{remark}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem*{claim}{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
 
-%\newtheorem{theorem}{Theorem}[section]
-%\newtheorem{proposition}[theorem]{Proposition}
-%\newtheorem{lemma}[theorem]{Lemma}
-%\newtheorem{corollary}[theorem]{Corollary}
-%\newtheorem{conjecture}[theorem]{Conjecture}
-%\theoremstyle{definition}
-%\newtheorem{definition}[theorem]{Definition}
-%\newtheorem{example}[theorem]{Example}
-%\newtheorem{note}[theorem]{Note}
-%\newtheorem{question}[theorem]{Question}
-%%\theoremstyle{remark}
-%\newtheorem{remark}[theorem]{Remark}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{note}[theorem]{Note}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{construction}[theorem]{Construction}
 
 \numberwithin{equation}{section}
 
